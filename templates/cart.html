@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PageAPI - Cart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='cart.css') }}">
+</head>
+<body>
+    <header>
+        <!-- Same header as favorites.html (copy the nav part) -->
+        <nav class="navigation-links">
+            <div class="actual-links-top">
+                <ul class="logo-and-title">
+                    <svg id="page-api-logo" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 18l.01 0" /><path d="M9.172 15.172a4 4 0 0 1 5.656 0" /><path d="M6.343 12.343a7.963 7.963 0 0 1 3.864 -2.14m4.163 .155a7.965 7.965 0 0 1 3.287 2" /><path d="M3.515 9.515a12 12 0 0 1 3.544 -2.455m3.101 -.92a12 12 0 0 1 10.325 3.374" />
+                        <path d="M3 3l18 18" /></svg>
+                    <li id="webapp-title"><a href="{{ url_for('index') }}">PageAPI</a></li>
+                </ul>
+                <ul class="links-right-side">
+                    {% for section_id, link_text, _ in nav_categories %}
+                    <li><a href="{{ url_for('index') }}#{{ section_id }}">{{ link_text }}</a></li>
+                    {% endfor %}
+                    <li><a href="{{ url_for('favorites') }}">Favorites</a></li>
+                    <li><a href="{{ url_for('cart') }}" style="color: #5595ed; font-weight: bold;">Cart</a></li>
+                    {% if 'user_email' in session %}
+                        <li style="color: #5595ed; font-weight: 600;">Përshëndetje, {{ session['user_email'] }}</li>
+                        <li><a href="{{ url_for('logout') }}" style="color: #e74c3c;">Dil</a></li>
+                    {% else %}
+                        <button id="sign-in" onclick="window.location.href='{{ url_for('login') }}'">Sign in</button>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="cart-main">
+        <h1>Shporta</h1>
+
+        {% if cart_items and cart_items|length > 0 %}
+            <div class="cart-items">
+                {% for item in cart_items %}
+                <div class="cart-item">
+                    <img src="{{ url_for('static', filename='images/' + item.book_img) }}" alt="{{ item.book_title }}">
+                    <div class="item-details">
+                        <h3>{{ item.book_title }}</h3>
+                        <p>{{ item.book_price }}</p>
+                        <div class="quantity">
+                            <span>Sasia: {{ item.quantity }}</span>
+                        </div>
+                    </div>
+                    <button class="remove-btn" data-id="{{ item.id }}">Hiq</button>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="total">
+                <h2>Totali: {{ total_price }}</h2>
+                <button class="checkout-btn">Vazhdo te Pagesa</button>
+            </div>
+        {% else %}
+            <p class="empty-message">Shporta jote është bosh. <a href="{{ url_for('index') }}">Kthehu në ballinë</a> për të blerë!</p>
+        {% endif %}
+    </main>
+</body>
+</html>

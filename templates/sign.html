@@ -1,0 +1,36 @@
+<!DOCTYPE html> 
+<html lang = "en"> 
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="Author" content="grupi">
+    <meta name="Description" content="BookStore"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PageAPI</title>
+    <link rel="stylesheet" href="static/sign.css"/>
+</head>
+<body>
+    
+    <main>
+
+    <div class ="title-info">
+        <h1 onclick="window.location.href='index.html'">PageAPI</h1>
+        <p>Krijo llogarine tende</p>
+    </div>
+
+    <form action="#" method="POST" class="user-form">
+    <input type="text" id="name" name="name" placeholder="Emri" required>
+
+    <input type="text" id="surname" name="surname" placeholder="Mbiemri" required>
+
+    <input type="email" id="email" name="email" placeholder="Email" required>
+
+    <input type="password" id="password" name="password" placeholder="Fjalëkalimi" required>
+
+    <button type="submit">Vazhdoni</button>
+    </form>
+
+    <p class="info">Posedoni një llogari?<a href="{{url_for('login')}}">Kyçuni</a></p> 
+    </main>
+</body>
+</html>
+

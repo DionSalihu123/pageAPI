@@ -1,0 +1,111 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items:center 
+}
+
+main {
+    width: 35vw;
+    height: 70vh;
+    border: 1px solid black; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;  
+      background: rgba(173, 216, 230, 0.4); 
+    
+    color: #1a1a1a;                    
+    padding: 2rem;
+    backdrop-filter: blur(12px);      
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    text-align: center;
+
+    border-radius: 4rem;
+    
+    /* Optional: subtle border */
+    border: 1px solid rgba(173, 216, 230, 0.5);
+    
+    /* Smooth hover effect */
+    transition: all 0.3s ease;
+}
+
+main:hover {
+    background: rgba(173, 216, 230, 0.6); /* Slightly less transparent on hover */
+    backdrop-filter: blur(15px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+}
+
+    
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 70%; 
+    height: 70%; 
+    justify-content: space-between;
+    align-items: center;
+}
+
+form input {
+    width: 100%; 
+    height: 12%; 
+    font-size: 1rem;
+    border: 2px inset; 
+    padding-left: 1rem; 
+    border-top-left-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+}
+
+.title-info {
+    width: 50%;
+    height: 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+}
+
+.title-info h1 {
+    font-size: 3rem;
+    color: #5595ed; 
+}
+
+h1:hover { 
+    cursor: grab;
+}
+
+button {
+    width: 30%;
+    height: 10%; 
+    border: 2px ridge; 
+    font-size: 1rem; 
+    font-weight: 500;
+    border-radius: 2rem; 
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    backdrop-filter: blur(15px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2); 
+}
+
+.info {
+    font-size: 1.2rem; 
+}
+
+.info a{
+    text-decoration: none;
+    color: blue; 
+    font-size: 1.3rem;
+    padding-left: 1rem; 
+}
