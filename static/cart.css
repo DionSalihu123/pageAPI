@@ -1,142 +1,117 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+:root {
+    --primary: #5595ed;
+    --primary-dark: #3a78c9;
+    --danger: #e74c3c;
+    --text: #2c3e50;
+    --bg: #f8f9fa;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background: #f0f8ff;
-    min-height: 100vh;
-}
+body { background: #f0f2f5; font-family: system-ui, sans-serif; margin: 0; }
 
-header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 10;
+.inside {
+    width: 90%;
+    max-width: 1100px;
+    margin: 30px auto;
     background: white;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-.cart-main {
-    margin-top: 18vh;
-    padding: 4rem 2rem;
-    max-width: 1000px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.cart-main h1 {
-    font-size: 3.5rem;
-    color: #5595ed;
-    text-align: center;
-    margin-bottom: 3rem;
-}
-
-.cart-items {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.cart-item {
-    display: flex;
-    background: rgba(173, 216, 230, 0.4);
-    border-radius: 3rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     overflow: hidden;
-    border: 1px solid rgba(173, 216, 230, 0.5);
-    transition: all 0.3s ease;
-    backdrop-filter: blur(12px);
 }
 
-.cart-item:hover {
-    background: rgba(173, 216, 230, 0.6);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
-}
-
-.cart-item img {
-    width: 150px;
-    height: 200px;
-    object-fit: cover;
-}
-
-.item-details {
-    flex-grow: 1;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.item-details h3 {
-    font-size: 1.6rem;
-    margin-bottom: 1rem;
-}
-
-.item-details p {
-    font-size: 1.8rem;
-    color: #5595ed;
-    margin-bottom: 1rem;
-}
-
-.quantity {
-    font-size: 1.2rem;
-    color: #666;
-}
-
-.remove-btn {
-    align-self: center;
-    margin-right: 2rem;
-    padding: 1rem 2rem;
-    background: #e74c3c;
+h2 {
+    background: var(--primary);
     color: white;
-    border: none;
-    border-radius: 2rem;
-    cursor: pointer;
-    font-size: 1rem;
-}
-
-.remove-btn:hover {
-    background: #c0392b;
-}
-
-.total {
-    text-align: right;
-    margin-top: 3rem;
-    font-size: 2rem;
-    color: #5595ed;
-}
-
-.checkout-btn {
-    margin-top: 1rem;
-    padding: 1rem 3rem;
-    background: #5595ed;
-    color: white;
-    border: none;
-    border-radius: 3rem;
-    font-size: 1.4rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.checkout-btn:hover {
-    background: #4070d0;
-    transform: scale(1.1);
-}
-
-.empty-message {
-    font-size: 1.8rem;
-    color: #666;
+    padding: 20px;
+    margin: 0;
     text-align: center;
-    margin-top: 5rem;
+    font-size: 1.8rem;
 }
 
-.empty-message a {
-    color: #5595ed;
-    text-decoration: none;
+.upper-links {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    padding: 15px;
+    background: #f1f3f5;
+    font-weight: 600;
+    text-align: center;
+    border-bottom: 2px solid #ddd;
 }
 
-.empty-message a:hover {
-    text-decoration: underline;
+.box {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    padding: 20px 15px;
+    border-bottom: 1px solid #eee;
+    align-items: center;
 }
+
+.imgEdes {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.imgEdes img {
+    width: 80px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.cmimi, .total { text-align: center; font-weight: 600; color: var(--text); }
+
+.sasia-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--bg);
+    padding: 8px;
+    border-radius: 30px;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.add, .sub {
+    width: 36px;
+    height: 36px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.add:hover, .sub:hover { background: var(--primary-dark); }
+
+.quantity { min-width: 40px; text-align: center; font-weight: 600; }
+
+.trash-btn {
+    background: none;
+    border: none;
+    color: var(--danger);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.trash-btn:hover { transform: scale(1.2); }
+
+#trash a { color: var(--danger); text-decoration: none; }
+
+.grand-total {
+    text-align: right;
+    padding: 25px;
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: var(--primary-dark);
+}
+
+.empty-cart {
+    text-align: center;
+    padding: 60px;
+    font-size: 1.4rem;
+    color: #666;
+}
+
+.empty-cart a { color: var(--primary); text-decoration: none; }

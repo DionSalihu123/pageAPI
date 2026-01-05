@@ -13,19 +13,24 @@
         <nav class="navigation-links">
             <div class="actual-links-top">
                 <ul class="logo-and-title">
-                    <svg id="page-api-logo" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-wifi-off">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 18l.01 0" /><path d="M9.172 15.172a4 4 0 0 1 5.656 0" /><path d="M6.343 12.343a7.963 7.963 0 0 1 3.864 -2.14m4.163 .155a7.965 7.965 0 0 1 3.287 2" /><path d="M3.515 9.515a12 12 0 0 1 3.544 -2.455m3.101 -.92a12 12 0 0 1 10.325 3.374" />
-                        <path d="M3 3l18 18" /></svg>
+                    <svg id="page-api-logo" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M12 18l.01 0" />
+                        <path d="M9.172 15.172a4 4 0 0 1 5.656 0" />
+                        <path d="M6.343 12.343a7.963 7.963 0 0 1 3.864 -2.14m4.163 .155a7.965 7.965 0 0 1 3.287 2" />
+                        <path d="M3.515 9.515a12 12 0 0 1 3.544 -2.455m3.101 -.92a12 12 0 0 1 10.325 3.374" />
+                        <path d="M3 3l18 18" />
+                    </svg>
                     <li id="webapp-title"><a href="{{ url_for('index') }}">PageAPI</a></li>
                 </ul>
                 <ul class="links-right-side">
                     {% for section_id, link_text, _ in nav_categories %}
                     <li><a href="#{{ section_id }}">{{ link_text }}</a></li>
                     {% endfor %}
-                    <li><a href="{{ url_for('favorites') }} ">Favorites</a></li>
-                    <li><a href="{{ url_for('cart') }} ">Cart</a></li>
 
-                    <!-- User Status -->
+                    <li><a href="{{ url_for('cart') }}">Shporta {% if cart_count > 0 %}({{ cart_count }}){% endif %}</a></li>
+                    <li><a href="{{ url_for('favorites_page') }}">Të Preferuara {% if favorites_count > 0 %}({{ favorites_count }}){% endif %}</a></li>
+
                     {% if 'user_email' in session %}
                         <li style="color: #5595ed; font-weight: 600;">
                             Përshëndetje, {{ session['user_email'] }}
@@ -38,13 +43,17 @@
             </div>
             <div class="search-engine-top">
                 <div class="box-for-search">
-                    <svg id="search-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-search">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+                    <svg id="search-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+                        <path d="M21 21l-6 -6" />
+                    </svg>
                     <input type="text" id="search-input" placeholder="Kerko...">
                 </div>
             </div>
         </nav>
     </header>
+
     <main>
         <div class="main-intro-page">
             <div class="first-part">
@@ -68,16 +77,21 @@
             </div>
             <div class="more-info-svg">
                 <div class="quality-svg-info">
-                    <svg class="quality-svg-logo" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-star">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z" /></svg>
+                    <svg class="quality-svg-logo" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z" />
+                    </svg>
                     <div class="quality-text">
                         <h2>Quality</h2>
                         <p>Each book added to our shelves undergoes a thorough quality check upon arrival.</p>
                     </div>
                 </div>
                 <div class="quality-svg-info">
-                    <svg class="quality-svg-logo" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-send-2">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4.698 4.034l16.302 7.966l-16.302 7.966a.503 .503 0 0 1 -.546 -.124a.555 .555 0 0 1 -.12 -.568l2.468 -7.274l-2.468 -7.274a.555 .555 0 0 1 .12 -.568a.503 .503 0 0 1 .546 -.124z" /><path d="M6.5 12h14.5" /></svg>
+                    <svg class="quality-svg-logo" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M4.698 4.034l16.302 7.966l-16.302 7.966a.503 .503 0 0 1 -.546 -.124a.555 .555 0 0 1 -.12 -.568l2.468 -7.274l-2.468 -7.274a.555 .555 0 0 1 .12 -.568a.503 .503 0 0 1 .546 -.124z" />
+                        <path d="M6.5 12h14.5" />
+                    </svg>
                     <div class="delivery-text">
                         <h2>Delivery</h2>
                         <p>Can't make it into the library? No problem. With our convenient home delivery service, the library comes to you.</p>
@@ -86,7 +100,7 @@
             </div>
         </div>
 
-        <!-- Dynamic Book Sections -->
+        <!-- Books -->
         {% for section_id, _, category_name in nav_categories %}
         <div class="row" id="{{ section_id }}">
             <h2 class="h2-title-books">{{ category_name }}</h2>
@@ -94,14 +108,18 @@
                 {% for book in books[category_name] %}
                 <div class="bookkk">
                     <img src="{{ url_for('static', filename='images/' + book.img) }}" class="books-photos" alt="{{ book.title }}">
-                    <p>{{ book.title }}</p>
-                    <p>{{ book.price }}
-                        <svg class="heart-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <p class="book-title">{{ book.title }}</p>
+                    <p class="book-price">
+                        {{ book.price }}
+                        <svg class="heart-svg {% if book.id in favorite_ids %}favorited{% endif %}"
+                             onclick="toggleFavorite({{ book.id }}, this)"
+                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"/>
                         </svg>
                     </p>
-                    <button class="blerja">Shto ne shporte</button>
+                    <button class="blerja" onclick="addToCart({{ book.id }})">
+                        Shto në shportë
+                    </button>
                 </div>
                 {% endfor %}
             </div>
@@ -114,16 +132,7 @@
                 <h3>Libraria PageAPI</h3>
                 <p>Numri kontaktues +383 44-155-155</p>
                 <div class="footer-icons">
-                    <svg id="facebook-footer" fill="#000000" height="800px" width="800px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-337 273 123.5 256" xml:space="preserve">
-                        <path d="M-260.9,327.8c0-10.3,9.2-14,19.5-14c10.3,0,21.3,3.2,21.3,3.2l6.6-39.2c0,0-14-4.8-47.4-4.8c-20.5,0-32.4,7.8-41.1,19.3
-                         c-8.2,10.9-8.5,28.4-8.5,39.7v25.7H-337V396h26.5v133h49.6V396h39.3l2.9-38.3h-42.2V327.8z"/>
-                    </svg>
-                    <svg id="instagram-footer" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
-                    </svg>
-                    <svg id="tiktok-footer" fill="#000000" width="800px" height="800px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M16.656 1.029c1.637-0.025 3.262-0.012 4.886-0.025 0.054 2.031 0.878 3.859 2.189 5.213l-0.002-0.002c1.411 1.271 3.247 2.095 5.271 2.235l0.028 0.002v5.036c-1.912-0.048-3.71-0.489-5.331-1.247l0.082 0.034c-0.784-0.377-1.447-0.764-2.077-1.196l0.052 0.034c-0.012 3.649 0.012 7.298-0.025 10.934-0.103 1.853-0.719 3.543-1.707 4.954l0.020-0.031c-1.652 2.366-4.328 3.919-7.371 4.011l-0.014 0c-0.123 0.006-0.268 0.009-0.414 0.009-1.73 0-3.347-0.482-4.725-1.319l0.040 0.023c-2.508-1.509-4.238-4.091-4.558-7.094l-0.004-0.041c-0.025-0.625-0.037-1.25-0.012-1.862 0.49-4.779 4.494-8.476 9.361-8.476 0.547 0 1.083 0.047 1.604 0.136l-0.056-0.008c0.025 1.849-0.050 3.699-0.050 5.548-0.423-0.153-0.911-0.242-1.42-0.242-1.868 0-3.457 1.194-4.045 2.861l-0.009 0.030c-0.133 0.427-0.21 0.918-0.21 1.426 0 0.206 0.013 0.41 0.037 0.61l-0.002-0.024c0.332 2.046 2.086 3.59 4.201 3.59 0.061 0 0.121-0.001 0.181-0.004l-0.009 0c1.463-0.044 2.733-0.831 3.451-1.994l0.010-0.018c0.267-0.372 0.45-0.822 0.511-1.311l0.001-0.014c0.125-2.237 0.075-4.461 0.087-6.698 0.012-5.036-0.012-10.060 0.025-15.083z"></path>
-                    </svg>
+                    <!-- Your social icons -->
                 </div>
             </div>
             <div class="help">
@@ -133,9 +142,63 @@
                     <li><a href="#">Rreth Nesh</a></li>
                     <li><a href="#">Politika e privatësisë</a></li>
                 </ul>
-                <p>&copy 2025 Libraria PageAPI. All Rights Reserved.</p>
+                <p>&copy; 2025 Libraria PageAPI. All Rights Reserved.</p>
             </div>
         </div>
     </main>
+
+    <!-- Cart & Favorites JavaScript -->
+    <script>
+        function addToCart(bookId) {
+            fetch('/add_to_cart', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ book_id: bookId })
+            })
+            .then(r => r.json())
+            .then(data => {
+                alert(data.message);
+                location.reload(); // Update cart count
+            });
+        }
+
+        function toggleFavorite(bookId, heartElement) {
+            fetch('/add_to_favorites', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ book_id: bookId })
+            })
+            .then(r => r.json())
+            .then(data => {
+                alert(data.message);
+                if (data.success) {
+                    heartElement.classList.add('favorited');
+                    location.reload(); // Update favorites count
+                }
+            });
+        }
+    </script>
+
+    <!-- Heart Styling -->
+    <style>
+        .heart-svg {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            stroke: #666;
+            fill: none;
+            transition: all 0.3s ease;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        .heart-svg.favorited {
+            fill: #e74c3c;
+            stroke: #e74c3c;
+        }
+        .heart-svg:hover {
+            transform: scale(1.2);
+            stroke: #e74c3c;
+        }
+    </style>
 </body>
 </html>
