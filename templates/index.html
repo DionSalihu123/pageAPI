@@ -33,7 +33,7 @@
 
                     {% if 'user_email' in session %}
                         <li style="color: #5595ed; font-weight: 600;">
-                            Përshëndetje, {{ session['user_email'] }}
+                             {{ session['user_email'] }}
                         </li>
                         <li><a href="{{ url_for('logout') }}" style="color: #e74c3c; font-weight: 500;">Dil</a></li>
                     {% else %}
@@ -84,7 +84,7 @@
                     </svg>
                     <div class="quality-text">
                         <h2>Quality</h2>
-                        <p>Each book added to our shelves undergoes a thorough quality check upon arrival.</p>
+                        <p>Each book added to our shelves undergoes a thorough quality check.</p>
                     </div>
                 </div>
                 <div class="quality-svg-info">
@@ -95,7 +95,7 @@
                     </svg>
                     <div class="delivery-text">
                         <h2>Delivery</h2>
-                        <p>Can't make it into the library? No problem. With our convenient home delivery service, the library comes to you.</p>
+                        <p>Can't make it into the library? No problem.The library comes to you.</p>
                     </div>
                 </div>
             </div>
