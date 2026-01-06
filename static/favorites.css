@@ -1,109 +1,157 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* favorites.css - Same modern style as cart.css */
 
 body {
     font-family: Arial, sans-serif;
-    background: #f0f8ff;
-    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
 }
 
 header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 10;
-    background: white;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.navigation-links {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.actual-links-top {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-and-title {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#page-api-logo {
+    margin-right: 10px;
+}
+
+#webapp-title a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #5595ed;
+    font-size: 1.2em;
+}
+
+.links-right-side {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+.links-right-side li {
+    margin-left: 20px;
+}
+
+.links-right-side a {
+    text-decoration: none;
+    color: #333;
+}
+
+.links-right-side a:hover {
+    color: #5595ed;
+}
+
+/* Favorites main content */
 .favorites-main {
-    margin-top: 18vh;
-    padding: 4rem 2rem;
-    text-align: center;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .favorites-main h1 {
-    font-size: 3.5rem;
+    text-align: center;
+    margin-bottom: 30px;
     color: #5595ed;
-    margin-bottom: 3rem;
 }
 
-.books-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
+.favorites-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.book-card {
-    background: rgba(173, 216, 230, 0.4);
-    border-radius: 3rem;
-    overflow: hidden;
-    border: 1px solid rgba(173, 216, 230, 0.5);
-    transition: all 0.3s ease;
-    backdrop-filter: blur(12px);
+.favorite-item {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: box-shadow 0.3s;
 }
 
-.book-card:hover {
-    background: rgba(173, 216, 230, 0.6);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
-    transform: translateY(-10px);
+.favorite-item:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.book-card img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
+.favorite-item img {
+    width: 150px;
+    height: auto;
+    margin-right: 30px;
+    border-radius: 4px;
 }
 
-.book-info {
-    padding: 1.5rem;
+.item-details {
+    flex-grow: 1;
 }
 
-.book-info .title {
-    font-size: 1.4rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
+.item-details h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.2em;
 }
 
-.book-info .price {
-    font-size: 1.6rem;
-    color: #5595ed;
-    margin-bottom: 1rem;
-}
-
-.remove-btn {
-    width: 100%;
-    padding: 0.8rem;
-    background: #e74c3c;
-    color: white;
-    border: none;
-    border-radius: 2rem;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.remove-btn:hover {
-    background: #c0392b;
-    transform: scale(1.05);
-}
-
-.empty-message {
-    font-size: 1.8rem;
+.item-details p {
+    margin: 0;
     color: #666;
-    margin-top: 5rem;
 }
 
-.empty-message a {
+.remove-link {
+    color: #e74c3c;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.remove-link:hover {
+    text-decoration: underline;
+}
+
+.empty-favorites {
+    text-align: center;
+    font-size: 1.2em;
+    color: #666;
+    padding: 40px;
+}
+
+.back-link {
+    display: block;
+    text-align: center;
     color: #5595ed;
     text-decoration: none;
+    font-weight: bold;
+    margin-top: 20px;
 }
 
-.empty-message a:hover {
+.back-link:hover {
     text-decoration: underline;
 }
