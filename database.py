@@ -35,31 +35,40 @@ def init_db(app):
             )
         ''')
 
-                # Create cart table
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS cart (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                session_id TEXT NOT NULL,  -- Unique per browser/session
+                user_id INTEGER,
                 book_id INTEGER NOT NULL,
                 quantity INTEGER DEFAULT 1,
-                FOREIGN KEY (book_id) REFERENCES books (id) ON DELETE CASCADE
+                FOREIGN KEY (book_id) REFERENCES books (id) ON DELETE CASCADE,
+                FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
             )
         ''')
 
-                # Create favorites table
+        # Create favorites table with user_id
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS favorites (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                session_id TEXT NOT NULL,
+                user_id INTEGER,
                 book_id INTEGER NOT NULL,
-                UNIQUE(session_id, book_id),  -- Prevent duplicates
-                FOREIGN KEY (book_id) REFERENCES books (id) ON DELETE CASCADE
+                UNIQUE(user_id, book_id),
+                FOREIGN KEY (book_id) REFERENCES books (id) ON DELETE CASCADE,
+                FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
             )
         ''')
-        cursor.execute('CREATE INDEX IF NOT EXISTS idx_favorites_session ON favorites (session_id)')
+                
 
-        # Create index for faster lookups
-        cursor.execute('CREATE INDEX IF NOT EXISTS idx_cart_session ON cart (session_id)')
+        # Create users table
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS users (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL,
+                surname TEXT NOT NULL,
+                email TEXT UNIQUE NOT NULL,
+                password_hash TEXT NOT NULL
+            )
+        ''')
 
         # Insert default books ONLY if table is empty
         cursor.execute("SELECT COUNT(*) FROM books")

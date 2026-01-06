@@ -48,7 +48,8 @@
                         <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
                         <path d="M21 21l-6 -6" />
                     </svg>
-                    <input type="text" id="search-input" placeholder="Kerko...">
+                    <!-- Changed to input event for better UX -->
+                    <input type="text" id="search-input" placeholder="Kerko librat..." oninput="searchBooks()">
                 </div>
             </div>
         </nav>
@@ -100,31 +101,42 @@
             </div>
         </div>
 
-        <!-- Books -->
-        {% for section_id, _, category_name in nav_categories %}
-        <div class="row" id="{{ section_id }}">
-            <h2 class="h2-title-books">{{ category_name }}</h2>
-            <div class="book-content">
-                {% for book in books[category_name] %}
-                <div class="bookkk">
-                    <img src="{{ url_for('static', filename='images/' + book.img) }}" class="books-photos" alt="{{ book.title }}">
-                    <p class="book-title">{{ book.title }}</p>
-                    <p class="book-price">
-                        {{ book.price }}
-                        <svg class="heart-svg {% if book.id in favorite_ids %}favorited{% endif %}"
-                             onclick="toggleFavorite({{ book.id }}, this)"
-                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"/>
-                        </svg>
-                    </p>
-                    <button class="blerja" onclick="addToCart({{ book.id }})">
-                        Shto në shportë
-                    </button>
+        <!-- All Books -->
+        <div id="all-books">
+            {% for section_id, _, category_name in nav_categories %}
+            <div class="row" id="{{ section_id }}">
+                <h2 class="h2-title-books">{{ category_name }}</h2>
+                <div class="book-content">
+                    {% for book in books[category_name] %}
+                    <div class="bookkk">
+                        <img src="{{ url_for('static', filename='images/' + book.img) }}" class="books-photos" alt="{{ book.title }}">
+                        <p class="book-title">{{ book.title }}</p>
+                        <p class="book-price">
+                            {{ book.price }}
+                            <svg class="heart-svg {% if book.id in favorite_ids %}favorited{% endif %}"
+                                 onclick="toggleFavorite({{ book.id }}, this)"
+                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"/>
+                            </svg>
+                        </p>
+                        <button class="blerja" onclick="addToCart({{ book.id }})">
+                            Shto në shportë
+                        </button>
+                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+
+        <!-- Search Results -->
+        <div id="search-results" style="display: none;">
+            <h2 style="text-align: center; padding: 20px;">Rezultatet e kërkimit</h2>
+            <div id="search-books-container" class="book-content"></div>
+            <p style="text-align: center; margin: 20px;">
+                <a href="{{ url_for('index') }}" style="color: #5595ed;">Kthehu te të gjitha librat</a>
+            </p>
+        </div>
 
         <!-- Footer -->
         <div class="footer" id="five">
@@ -132,7 +144,7 @@
                 <h3>Libraria PageAPI</h3>
                 <p>Numri kontaktues +383 44-155-155</p>
                 <div class="footer-icons">
-                    <!-- Your social icons -->
+                    <!-- Your icons -->
                 </div>
             </div>
             <div class="help">
@@ -147,8 +159,63 @@
         </div>
     </main>
 
-    <!-- Cart & Favorites JavaScript -->
+    <!-- JavaScript -->
     <script>
+        // All books as safe JS array - NO JINJA LOOP IN JS
+        const allBooks = {{ books|tojson }};
+
+        // Convert books dict to flat array
+        const flatBooks = [];
+        Object.values(allBooks).forEach(categoryBooks => {
+            categoryBooks.forEach(book => {
+                flatBooks.push(book);
+            });
+        });
+
+        const favoriteIds = [{{ favorite_ids|join(',') or '' }}];
+
+        function searchBooks() {
+            const query = document.getElementById('search-input').value.toLowerCase().trim();
+            const allBooksDiv = document.getElementById('all-books');
+            const resultsDiv = document.getElementById('search-results');
+            const container = document.getElementById('search-books-container');
+
+            if (query === '') {
+                allBooksDiv.style.display = 'block';
+                resultsDiv.style.display = 'none';
+                return;
+            }
+
+            const filtered = flatBooks.filter(book => 
+                book.title.toLowerCase().includes(query)
+            );
+
+            allBooksDiv.style.display = 'none';
+            resultsDiv.style.display = 'block';
+
+            if (filtered.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:#666; padding:40px;">Nuk u gjet asnjë libër për "' + query + '"</p>';
+            } else {
+                container.innerHTML = filtered.map(book => `
+                    <div class="bookkk">
+                        <img src="/static/images/${book.img}" class="books-photos" alt="${book.title}">
+                        <p class="book-title">${book.title}</p>
+                        <p class="book-price">
+                            ${book.price}
+                            <svg class="heart-svg ${favoriteIds.includes(book.id) ? 'favorited' : ''}"
+                                 onclick="toggleFavorite(${book.id}, this)"
+                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"/>
+                            </svg>
+                        </p>
+                        <button class="blerja" onclick="addToCart(${book.id})">
+                            Shto në shportë
+                        </button>
+                    </div>
+                `).join('');
+            }
+        }
+
         function addToCart(bookId) {
             fetch('/add_to_cart', {
                 method: 'POST',
@@ -158,11 +225,12 @@
             .then(r => r.json())
             .then(data => {
                 alert(data.message);
-                location.reload(); // Update cart count
-            });
+                location.reload();
+            })
+            .catch(() => alert('Gabim!'));
         }
 
-        function toggleFavorite(bookId, heartElement) {
+        function toggleFavorite(bookId, element) {
             fetch('/add_to_favorites', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -172,14 +240,14 @@
             .then(data => {
                 alert(data.message);
                 if (data.success) {
-                    heartElement.classList.add('favorited');
-                    location.reload(); // Update favorites count
+                    element.classList.add('favorited');
+                    location.reload();
                 }
-            });
+            })
+            .catch(() => alert('Gabim!'));
         }
     </script>
 
-    <!-- Heart Styling -->
     <style>
         .heart-svg {
             width: 24px;
@@ -198,6 +266,20 @@
         .heart-svg:hover {
             transform: scale(1.2);
             stroke: #e74c3c;
+        }
+
+        #search-results {
+            background: #f8f9fa;
+            padding: 30px;
+            margin-top: 40px;
+            border-top: 3px solid #5595ed;
+        }
+
+        #search-books-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
         }
     </style>
 </body>
