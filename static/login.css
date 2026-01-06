@@ -11,93 +11,161 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #f0f8ff;
+    background: linear-gradient(135deg, #e0f7fa, #b2ebf2); /* Soft blue gradient */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 main {
-    width: 35vw;
-    height: 60vh; /* Slightly shorter than signup */
-    border: 1px solid black;
+    width: 90%;
+    max-width: 420px;
+    min-height: 500px;
+    padding: 40px 30px;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    background: rgba(173, 216, 230, 0.4);
-    color: #1a1a1a;
-    padding: 2rem;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
     text-align: center;
-    border-radius: 4rem;
-    border: 1px solid rgba(173, 216, 230, 0.5);
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
 }
 
 main:hover {
-    background: rgba(173, 216, 230, 0.6);
-    backdrop-filter: blur(15px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.35);
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    width: 70%;
-    height: 60%;
-    justify-content: space-between;
-    align-items: center;
-}
-
-form input {
-    width: 100%;
-    height: 15%;
-    font-size: 1rem;
-    border: 2px inset;
-    padding-left: 1rem;
-    border-radius: 2rem;
-}
-
+/* Logo & Title */
 .title-info {
-    width: 50%;
-    height: 15%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.logo-link {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
 }
 
 .title-info h1 {
-    font-size: 3rem;
+    font-size: 3.2rem;
+    font-weight: 700;
     color: #5595ed;
-}
-
-h1:hover {
-    cursor: grab;
-}
-
-button {
-    width: 30%;
-    height: 12%;
-    border: 2px ridge;
-    font-size: 1rem;
-    font-weight: 500;
-    border-radius: 2rem;
-    background: transparent;
+    margin: 0;
     transition: all 0.3s ease;
 }
 
-button:hover {
-    backdrop-filter: blur(15px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
-    background: rgba(173, 216, 230, 0.6);
+.logo-link:hover h1 {
+    color: #3a78d1;
+    transform: scale(1.05);
 }
 
+.title-info p {
+    margin-top: 10px;
+    font-size: 1.3rem;
+    color: #444;
+    font-weight: 500;
+}
+
+/* Form */
+.user-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.user-form input {
+    width: 100%;
+    padding: 16px 20px;
+    font-size: 1.1rem;
+    border: 2px solid rgba(173, 216, 230, 0.6);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.7);
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.user-form input:focus {
+    border-color: #5595ed;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0 0 4px rgba(85, 149, 237, 0.2);
+    transform: scale(1.02);
+}
+
+.user-form input::placeholder {
+    color: #888;
+}
+
+/* Button */
+.user-form button {
+    width: 100%;
+    padding: 16px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: white;
+    background: #5595ed;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 15px rgba(85, 149, 237, 0.3);
+}
+
+.user-form button:hover {
+    background: #3a78d1;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(85, 149, 237, 0.4);
+}
+
+.user-form button:active {
+    transform: translateY(0);
+}
+
+/* Info & Link */
 .info {
-    font-size: 1.2rem;
+    margin-top: 20px;
+    font-size: 1.1rem;
+    color: #555;
 }
 
 .info a {
+    color: #5595ed;
     text-decoration: none;
-    color: blue;
-    font-size: 1.3rem;
-    padding-left: 1rem;
+    font-weight: 600;
+    font-size: 1.15rem;
+    margin-left: 8px;
+    transition: color 0.3s;
+}
+
+.info a:hover {
+    color: #3a78d1;
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    main {
+        width: 95%;
+        padding: 30px 20px;
+        min-height: 480px;
+    }
+
+    .title-info h1 {
+        font-size: 2.8rem;
+    }
+
+    .user-form input,
+    .user-form button {
+        padding: 14px 18px;
+        font-size: 1rem;
+    }
+
+    .info {
+        font-size: 1rem;
+    }
 }

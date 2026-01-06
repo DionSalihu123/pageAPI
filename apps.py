@@ -206,6 +206,55 @@ def clear_cart():
         db.close()
     return redirect(url_for('cart'))
 
+@app.route('/place_order', methods=['POST'])
+def place_order():
+    user_id = get_user_id()
+    if not user_id:
+        flash('Duhet të kyçesh për të porositur!', 'error')
+        return redirect(url_for('login'))
+
+    db = get_database()
+    cursor = db.cursor()
+
+    # Get current cart items
+    cursor.execute("""
+        SELECT b.id, b.title, b.price, c.quantity 
+        FROM cart c 
+        JOIN books b ON c.book_id = b.id 
+        WHERE c.user_id = ?
+    """, (user_id,))
+    items = cursor.fetchall()
+
+    if not items:
+        flash('Shporta është bosh!', 'error')
+        db.close()
+        return redirect(url_for('cart'))
+
+    # Calculate total
+    total = sum(float(item['price'].replace('$', '')) * item['quantity'] for item in items)
+    total_str = f"{total:.2f}$"
+
+    # Create order
+    cursor.execute("INSERT INTO orders (user_id, total_price) VALUES (?, ?)", (user_id, total_str))
+    order_id = cursor.lastrowid
+
+    # Add items to order_items
+    for item in items:
+        price_per_book = item['price']
+        cursor.execute("""
+            INSERT INTO order_items (order_id, book_id, quantity, price)
+            VALUES (?, ?, ?, ?)
+        """, (order_id, item['id'], item['quantity'], price_per_book))
+
+    # Clear cart
+    cursor.execute("DELETE FROM cart WHERE user_id = ?", (user_id,))
+
+    db.commit()
+    db.close()
+
+    flash('Porosia u krye me sukses! Faleminderit për blerjen ❤️', 'success')
+    return redirect(url_for('index'))
+
 # === FAVORITES ===
 @app.route('/add_to_favorites', methods=['POST'])
 def add_to_favorites():

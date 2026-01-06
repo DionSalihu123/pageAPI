@@ -11,7 +11,10 @@
 <body>
     <main>
         <div class="title-info">
-            <h1 onclick="window.location.href='/'">PageAPI</h1>
+            <!-- Clickable PageAPI title that goes to home -->
+            <a href="{{ url_for('index') }}" class="logo-link">
+                <h1>PageAPI</h1>
+            </a>
             <p>Kyçuni në llogarinë tuaj</p>
         </div>
         <form action="{{ url_for('login') }}" method="POST" class="user-form">
@@ -19,7 +22,7 @@
             <input type="password" id="password" name="password" placeholder="Fjalëkalimi" required>
             <button type="submit">Kyçuni</button>
         </form>
-        <p class="info">Nuk keni llogari?<a href="{{ url_for('signup') }}">Regjistrohuni</a></p>
+        <p class="info">Nuk keni llogari? <a href="{{ url_for('signup') }}">Regjistrohuni</a></p>
     </main>
 </body>
 </html>
